@@ -12,7 +12,7 @@ class adminHomeController extends Controller {
             const openId = new Date().getTime();
             this.ctx.session.openId = { openId };
             this.ctx.body = { data: '登录成功', openId: openId };
-            // console.log(this.ctx.body);
+
         } else {
             this.ctx.body = { data: '登录失败' };
         }

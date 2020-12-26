@@ -39,8 +39,8 @@ module.exports = appInfo => {
   };
   config.cors = {
     // 那些可以跨域访问
-    origin: 'http://localhost:3000',
-    // origin: 'http://localhost:8000',
+    // origin: ['http://localhost:3000', 'http://localhost:9000'],
+    origin: '*',
     // 允许Cook跨域请求
     credentials: true,
     // 那些请求可以跨域
