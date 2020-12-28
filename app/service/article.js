@@ -18,6 +18,16 @@ class ArticleService extends Service {
         const id = this.ctx.params.id;
         try {
             const articleId = await this.ctx.model.Article.findById(id);
+            if (articleId) {
+                articleId.visitCount = articleId.visitCount + 1;
+                const articleDeticles = await this.ctx.model.Article.updateOne({ _id: articleId._id }, { visitCount: articleId.visitCount });
+                if (articleDeticles.ok == 1) {
+                    const updateArticle = await this.ctx.model.Article.findById(articleId._id);
+                    console.log(updateArticle)
+                    return updateArticle;
+                }
+                return articleId;
+            }
             return articleId;
         } catch (error) {
             this.ctx.body = JSON.stringify(error);
@@ -26,7 +36,6 @@ class ArticleService extends Service {
 
     // 新增文章
     async addArticle() {
-        console.log(this.ctx.request.body);
         const newArticle = this.ctx.request.body;
         try {
             const article = await this.ctx.model.Article(newArticle);
@@ -40,7 +49,6 @@ class ArticleService extends Service {
     // 修改文章
     async updateArticle() {
         const olderArticle = this.ctx.request.body;
-        console.log(olderArticle)
         try {
             const article = await this.ctx.model.Article.updateOne({ _id: olderArticle._id }, {
                 title: this.ctx.request.body.title,
@@ -56,7 +64,6 @@ class ArticleService extends Service {
     }
 
     async deleteArticleById() {
-        console.log(this.ctx.params.id)
         const id = this.ctx.params.id;
         try {
             const resDeleteArticle = await this.ctx.model.Article.findByIdAndDelete({ _id: id });
