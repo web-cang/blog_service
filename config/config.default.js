@@ -28,8 +28,9 @@ module.exports = appInfo => {
       url: 'mongodb://127.0.0.1/blog',
       options: {
         useNewUrlParser: true,
+        mongos: true,
       },
-      // plugins: [],
+      plugins: [],
     },
   };
 
@@ -46,17 +47,8 @@ module.exports = appInfo => {
     // 那些请求可以跨域
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
   };
-  // 设置安全
+  // 取消安全证书
   config.security = {
-    // scrf: {
-    //   headerName: 'x-csrf-token',
-    //   // enable: false,
-    //   // ignoreJSON: true,
-    // },
-    // // xframe: {
-    // //   enable: false,
-    // // },
-    // domainWhiteList: ['*'],
     csrf: { enable: false },
     domainWhiteList: ['*']
   };
