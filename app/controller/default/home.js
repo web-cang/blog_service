@@ -11,7 +11,10 @@ class HomeController extends Controller {
     // 查询文章
     async article() {
         const resArticle = await this.service.article.findArticle();
-        this.ctx.body = { data: resArticle };
+        var newResArticle = resArticle.sort((a, b) => {
+            return b.createTime - a.createTime;
+        });
+        this.ctx.body = { data: newResArticle };
     }
     // 根据Id查询文章详情
     async articleDetails() {
